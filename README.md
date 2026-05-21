@@ -7,7 +7,7 @@ An n8n workflow that analyzes Google SERP results for a keyword and classifies s
 # Output 
 <img width="834" height="452" alt="image" src="https://github.com/user-attachments/assets/a247b611-fb90-4a80-9286-dca77df56143" />
 
-## Live chat URL: https://arinavolkova.app.n8n.cloud/workflow/q7Qc0YMKO9hPpidt 
+# Live chat URL: https://arinavolkova.app.n8n.cloud/workflow/q7Qc0YMKO9hPpidt 
 note: only works till June 4th, 2026
 
 # Prompt
