@@ -24,12 +24,12 @@ Interactive Quiz (optional but highly recommended): A short quiz ("Which Canadia
 AEO TIP: To make the content highly extractable by AI search engines, implement clear, descriptive headings (H2s and H3s) for each bank profile and for each "best for" category, then use concise bullet points or short, direct sentences to summarize key features, pros, and cons immediately beneath those headings.
 
 Example Structure:
-## The Best Bank for Low Fees
-### Tangerine Bank
+The Best Bank for Low Fees
+Tangerine Bank
 Pros: No monthly fees, good interest rates, cashback credit cards.
 Cons: No physical branches, limited investment products.
 Best for: Savers, budget-conscious individuals, digital-savvy users.
-### EQ Bank
+EQ Bank
 Pros: High-interest savings accounts, no monthly fees, strong GIC rates.
 Cons: No chequing accounts, limited lending products.
 Best for: Maximizing savings, GIC investors.
