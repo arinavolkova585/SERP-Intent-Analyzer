@@ -1,0 +1,157 @@
+{
+  "name": "SERP Intent Analyzer",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! Enter a keyword to analyze SERP search intent and get a content angle recommendation.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "872fa833-9aa6-4c24-a1bf-86545267577d",
+      "name": "When chat message received",
+      "webhookId": "dc51cfa7-4a55-466e-9119-24430c9eccc2"
+    },
+    {
+      "parameters": {
+        "url": "https://serpapi.com/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.chatInput }}"
+            },
+            {
+              "name": "api_key",
+              "value": "3fdb850003d297686d73da86b477a1a73a97412a088470acd3164d93f8209b75"
+            },
+            {
+              "name": "num",
+              "value": "10"
+            },
+            {
+              "name": "gl",
+              "value": "ca"
+            },
+            {
+              "name": "hl",
+              "value": "en"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0dbd77e8-86bd-426c-bd8f-d663cda86579",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an SEO and content strategy analyst. A user has searched for the keyword: \"{{ $('When chat message received').item.json.chatInput }}\"\n\nHere are the top 10 Google search results for this keyword:\n{{ $json.organic_results.map(r => `Title: ${r.title}\\nSnippet: ${r.snippet}`).join('\\n\\n') }}\n\nAnalyze these results and return the following in clean structured format:\n\n1. SEARCH INTENT: Classify as one of: Informational, Commercial, Navigational, or Transactional. Explain in 2 sentences why.\n\n2. AUDIENCE: Who is most likely searching this keyword and what stage of the funnel are they in?\n\n3. CONTENT ANGLE: Recommend the best content angle to rank for this keyword and appear in AI search results (AEO). Be specific.\n\n4. RECOMMENDED FORMAT: What content format works best for this keyword (FAQ, how-to guide, comparison, listicle, etc.) and why.\n\n5. AEO TIP: One specific recommendation to make this content extractable by AI search engines like ChatGPT or Google AI Overviews."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "f54b6f83-586e-4e6e-ab8f-421b208c7112",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XQHU7jRRZTq70cji",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $input.first().json.content.parts[0].text;\nreturn [{ json: { output: text } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        32
+      ],
+      "id": "5e51c8f6-9c7c-4452-9190-1e4c4e403928",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "f63f6865-52d6-4ad2-b55c-abff4ddc2d3a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c948125d1b9a6ceeed779c120b432734051e74aa9ae6c94445d4fd6a6ceb3d1a"
+  },
+  "id": "q7Qc0YMKO9hPpidt",
+  "tags": []
+}
