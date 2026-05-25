@@ -34,8 +34,6 @@ Pros: High-interest savings accounts, no monthly fees, strong GIC rates.
 Cons: No chequing accounts, limited lending products.
 Best for: Maximizing savings, GIC investors.
 
-# Live chat URL: https://arinavolkova.app.n8n.cloud/workflow/q7Qc0YMKO9hPpidt 
-note: only works till June 4th, 2026
 
 # Prompt
 You are an SEO and content strategy analyst. A user has searched for the keyword: "{{ $('When chat message received').item.json.chatInput }}"
